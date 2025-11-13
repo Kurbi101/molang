@@ -1,0 +1,24 @@
+package parser.expressions.literals;
+
+import parser.expressions.ExprNode;
+import types.BoolType;
+
+import types.Type;
+
+public class BoolLiteralNode extends ExprNode {
+
+    private final boolean value;
+
+    public BoolLiteralNode(boolean value) {
+        this.value = value;
+        this.type = new BoolType();
+    }
+
+    public boolean getValue() {
+        return this.value;
+    }
+
+    public Type evaluateType() {
+        return this.type;
+    }
+}

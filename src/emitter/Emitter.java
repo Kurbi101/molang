@@ -1,11 +1,38 @@
 package emitter;
 
-public interface Emitter {
+import java.util.HashMap;
+import java.util.Stack;
 
-    void emit(String s);
+public abstract class Emitter {
+    HashMap<ContextKind, Context> contexts;
+    Stack<Context> currentContext;
 
-    default void emitln(String s) {
+    // TODO: add more contexts
+    public enum ContextKind {
+        Main,
+        Functions,
+        Structs,
+    };
+
+    abstract void emit(String s);
+
+    void emitln(String s) {
         emit(s + "\n");
+    }
+
+    public abstract void emitHeaders();
+    public abstract  void emitFooters();
+
+    public void switchContext(Context context) {
+        currentContext.push(context);
+    }
+
+    public Context currentContext() {
+        return currentContext.peek();
+    }
+
+    public void switchBackContext() {
+        currentContext.pop();
     }
 
 }

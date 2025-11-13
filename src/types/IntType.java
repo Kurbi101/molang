@@ -22,6 +22,10 @@ public class IntType extends Type {
         this.numBits = numBits;
     }
 
+    public IntType() {
+        this(true, IntBits.Int64);
+    }
+
     public boolean isSigned() {
         return this.isSigned;
     }
@@ -29,4 +33,5 @@ public class IntType extends Type {
     public IntBits getNumBits() {
         return this.numBits;
     }
+
 }

@@ -19,4 +19,5 @@ public class StructType extends Type {
     public String toString() {
         return "StructType(" + this.id + ")";
     }
+
 }

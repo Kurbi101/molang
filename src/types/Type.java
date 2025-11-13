@@ -1,7 +1,7 @@
 package types;
 
 
-public class Type {
+public abstract class Type {
 
     private final TypeKind kind;
 
@@ -25,4 +25,7 @@ public class Type {
     public String toString() {
         return "Type(" + this.kind.toString() + ")";
     }
+
+    //TODO: once ASTnode types are defines, there should be a static function for each type that returns a default value
+
 }

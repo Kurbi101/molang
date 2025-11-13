@@ -35,11 +35,8 @@ public abstract class Context {
         }
     }
 
-    public void writeHeader() {
+    public abstract void writeHeader();
 
-    }
+    public abstract void writeFooter();
 
-    public void writeFooter() {
-
-    }
 }

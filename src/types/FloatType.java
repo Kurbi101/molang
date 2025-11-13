@@ -14,6 +14,10 @@ public class FloatType extends Type {
         this.numBits = numBits;
     }
 
+    public FloatType() {
+        this(FloatBits.Float64);
+    }
+
     public FloatBits getNumBits() {
         return this.numBits;
     }
