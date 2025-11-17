@@ -16,7 +16,9 @@ import lexer.tokens.SimpleToken;
 public class Lexer {
     private final Lexicon lexicon;
     private final String source;
-    private int pos;
+    private int line;
+    private int col;
+    int pos;
 
     public Lexer(String stringPath) {
         this.lexicon = new Lexicon();
@@ -26,12 +28,18 @@ public class Lexer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        this.pos = 0;
+        this.line = this.col = this.pos = 0;
     }
 
     private char consume() {
         try {
-            return this.source.charAt(this.pos++);
+            char current = this.source.charAt(this.pos++);
+            this.col++;
+            if (current == '\n') {
+                this.line++;
+                this.col = 0;
+            }
+            return current;
         } catch (Exception ignored) {
             return '\0';
         }
@@ -81,7 +89,7 @@ public class Lexer {
 
     private Token getToken() {
         this.skip();
-        int startingPos = this.pos;
+        int startingCol = this.col;
         if (Character.isDigit(this.current())) {
             StringBuilder number = new StringBuilder();
             boolean isFloat = false;
@@ -92,9 +100,9 @@ public class Lexer {
                 number.append(this.consume());
             }
             if (isFloat) {
-                return new FloatLiteralToken(Double.parseDouble(number.toString()), new Span(startingPos, this.pos));
+                return new FloatLiteralToken(Double.parseDouble(number.toString()), new Span(this.line, startingCol, this.col));
             } else {
-                return new IntLiteralToken(Integer.parseInt(number.toString()), new Span(startingPos, this.pos));
+                return new IntLiteralToken(Integer.parseInt(number.toString()), new Span(this.line, startingCol, this.col));
             }
         } else if (Character.isAlphabetic(this.current())) {
             StringBuilder word = new StringBuilder();
@@ -103,27 +111,27 @@ public class Lexer {
             }
             TokenKind kind = this.lexicon.lookup(word.toString());
             if (kind == TokenKind.BoolLiteral) {
-                return new BoolLiteralToken(Boolean.parseBoolean(word.toString()), new Span(startingPos, this.pos));
+                return new BoolLiteralToken(Boolean.parseBoolean(word.toString()), new Span(this.line, startingCol, this.col));
             }
-            return new SimpleToken(kind, new Span(startingPos, this.pos));
+            return new SimpleToken(kind, new Span(this.line, startingCol, this.col));
         } else if (this.current() == '\"') {
             StringBuilder string = new StringBuilder();
             this.consume();
             while (this.current() != '\"') {
                 if (this.current() == '\0') {
-                    throw new LexingError("Unterminated string");
+                    throw this.unexpectedCharacter();
                 }
                 string.append(this.consume());
             }
             this.consume();
-            return new StrLiteralToken(string.toString(), new Span(startingPos, this.pos));
+            return new StrLiteralToken(string.toString(), new Span(this.line, startingCol, this.col));
         } else if (this.current() == '\'') {
             this.consume();
             char val = this.consume();
             if (consume() != '\''){
-                throw new LexingError("Unterminated character");
+                throw this.unexpectedCharacter();
             }
-            return new CharLiteralToken(val, new Span(startingPos, this.pos));
+            return new CharLiteralToken(val, new Span(this.line, startingCol, this.col));
         }
         else if (isSymbol(this.current())) {
             char first = this.consume();
@@ -131,15 +139,19 @@ public class Lexer {
             if (kind == null) {
                 String symbols = Character.toString(first) + Character.toString(consume());
                 try {
-                    return new SimpleToken(this.lexicon.wideSymbolLookup(symbols), new Span(startingPos, this.pos));
+                    return new SimpleToken(this.lexicon.wideSymbolLookup(symbols), new Span(this.line, startingCol, this.col));
                 } catch (Exception e) {
-                    throw new LexingError("Unexpected character: " + this.current());
+                    throw this.unexpectedCharacter();
                 }
             }
-            return new SimpleToken(kind, new Span(startingPos, this.pos));
+            return new SimpleToken(kind, new Span(this.line, startingCol, this.col));
         } else {
-            throw new LexingError("Unexpected character: " + this.current());
+           throw this.unexpectedCharacter();
         }
+    }
+
+    private LexingError unexpectedCharacter() {
+        throw LexingError.unexpectedCharacter(this.current(), this.source, this.line, this.col);
     }
 
     public ArrayList<Token> lex() {

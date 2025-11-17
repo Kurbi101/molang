@@ -1,6 +1,8 @@
 package emitter;
 
+import parser.ASTnode;
+
 public interface EmitterHandler {
 
-    public void handle(ASTnode)
+    public static void handle(ASTnode node, Emitter emitter) {}
 }

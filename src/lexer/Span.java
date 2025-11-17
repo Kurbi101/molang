@@ -1,9 +1,9 @@
 package lexer;
 
-public record Span (int start, int end) {
+public record Span (int line, int colStart, int colEnd) {
 
     @Override
     public String toString() {
-        return "[" + this.start + ", " + this.end + "]";
+        return "[" + this.line + ", " + this.colStart + ", " + this.colEnd + "]";
     }
 }

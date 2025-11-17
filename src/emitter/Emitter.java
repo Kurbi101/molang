@@ -5,7 +5,12 @@ import java.util.Stack;
 
 public abstract class Emitter {
     HashMap<ContextKind, Context> contexts;
-    Stack<Context> currentContext;
+    protected Stack<Context> currentContext;
+
+    public Emitter() {
+        this.contexts = new HashMap<>();
+        this.currentContext = new Stack<>();
+    }
 
     // TODO: add more contexts
     public enum ContextKind {
@@ -14,7 +19,7 @@ public abstract class Emitter {
         Structs,
     };
 
-    abstract void emit(String s);
+    protected abstract void emit(String s);
 
     void emitln(String s) {
         emit(s + "\n");

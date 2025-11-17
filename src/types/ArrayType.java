@@ -15,4 +15,8 @@ public class ArrayType extends Type {
     public String toString() {
         return "ArrayType(" + this.internal + ", " + this.length + ")";
     }
+
+    public Type getInternal() {
+        return this.internal;
+    }
 }
