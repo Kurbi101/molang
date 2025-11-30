@@ -3,6 +3,7 @@ package parser.expressions;
 import types.Type;
 
 public class BinOpNode extends ExprNode {
+    private static final ExprKind exprKind = ExprKind.BinOp;
 
     public enum BinOp {
         Add,
@@ -20,6 +21,14 @@ public class BinOpNode extends ExprNode {
         LessThanEqual,
         GreaterThan,
         GreaterTHanEqual,
+        AddAssign,
+        SubAssign,
+        MulAssign,
+        DivAssign,
+        ModAssign,
+        AndAssign,
+        OrAssign,
+        XorAssign,
     }
 
     private final ExprNode left;

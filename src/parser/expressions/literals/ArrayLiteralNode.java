@@ -7,11 +7,12 @@ import types.Type;
 
 import java.util.ArrayList;
 
-public class ArrayLiteralNode extends ExprNode {
-    private ArrayList<ExprNode> values;
+public class ArrayLiteralNode extends LiteralNode {
+    private final ArrayList<ExprNode> values;
     private Type type;
 
     public ArrayLiteralNode(ArrayList<ExprNode> values) {
+        super(LiteralKind.Array);
         this.values = values;
         this.type = evaluateType();
     }
@@ -31,6 +32,6 @@ public class ArrayLiteralNode extends ExprNode {
     }
 
     public Type getInternalType() {
-        return this.type;
+        //TODO: fix
     }
 }

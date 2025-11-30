@@ -1,13 +1,13 @@
 package parser;
 
-public record Symbol(int id) {
-    private static int counter = 0;
+public record Symbol(String id) {
 
-    public Symbol() {
-        this(counter++);
+    public String getID() {
+        return id;
     }
 
-    public int getID() {
-        return id;
+    @Override
+    public String toString() {
+        return this.id;
     }
 }

@@ -9,10 +9,10 @@ import parser.statements.StatementNode;
 public class FunctionDefinition {
     private final Symbol id;
     private final Type returnType;
-    private final ArrayList<Arguement> params;
+    private final ArrayList<Argument> params;
     private final ArrayList<StatementNode> body;
 
-    public FunctionDefinition(Symbol id, Type returnType, ArrayList<Arguement> params, ArrayList<StatementNode> body) {
+    public FunctionDefinition(Symbol id, Type returnType, ArrayList<Argument> params, ArrayList<StatementNode> body) {
         this.id = id;
         this.returnType = returnType;
         this.params = params;
@@ -27,7 +27,7 @@ public class FunctionDefinition {
         return this.returnType;
     }
 
-    public ArrayList<Arguement> getParams() {
+    public ArrayList<Argument> getParams() {
         return this.params;
     }
 

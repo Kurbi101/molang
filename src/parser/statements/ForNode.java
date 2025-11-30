@@ -6,28 +6,29 @@ import java.util.ArrayList;
 
 public class ForNode extends StatementNode {
 
-    private ExprNode preCondition;
-    private ExprNode condition;
-    private ExprNode postCondition;
-    private ArrayList<StatementNode> body;
+    private final ExprNode init;
+    private final ExprNode condition;
+    private final ExprNode update;
+    private final ArrayList<StatementNode> body;
+    public static final StatementKind kind = StatementKind.For;
 
     public ForNode(ExprNode preCondition, ExprNode condition, ExprNode postCondition, ArrayList<StatementNode> body) {
-        this.preCondition = preCondition;
+        this.init = preCondition;
         this.condition = condition;
-        this.postCondition = postCondition;
+        this.update = postCondition;
         this.body = body;
     }
 
-    public ExprNode getPreCondition() {
-        return this.preCondition;
+    public ExprNode getInit() {
+        return this.init;
     }
 
     public ExprNode getCondition() {
         return this.condition;
     }
 
-    public ExprNode getPostCondition() {
-        return this.postCondition;
+    public ExprNode getUpdate() {
+        return this.update;
     }
 
     public ArrayList<StatementNode> getBody() {

@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import lexer.tokens.Token;
+import lexer.tokens.TokenKind;
+
 import java.util.Stack;
 
 public class Parser {
@@ -36,9 +38,11 @@ public class Parser {
         return tokens.get(pos + 1);
     }
 
-    public Token expectConsume() throws ParsingError {
-
-
+    public Token expectConsume(TokenKind kind) {
+        if (currentToken().isNot(kind)) {
+            throw ParsingError.unexpectedToken(currentToken(), kind, this.sourceFile);
+        }
+        return consumeToken();
     }
 
 

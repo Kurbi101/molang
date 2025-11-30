@@ -4,10 +4,13 @@ import parser.expressions.ExprNode;
 import types.IntType;
 import types.Type;
 
-public class IntLiteralNode extends ExprNode {
+import static parser.expressions.literals.LiteralNode.LiteralKind.Int;
+
+public class IntLiteralNode extends LiteralNode {
     private final int value;
 
     public IntLiteralNode(int value) {
+        super(Int);
         this.value = value;
         this.type = new IntType();
     }

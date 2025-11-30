@@ -5,9 +5,10 @@ import parser.expressions.ExprNode;
 import java.util.ArrayList;
 
 public class IfNode extends StatementNode {
-    private ExprNode condition;
-    private ArrayList<StatementNode> body;
-    private ArrayList<StatementNode> elseBody;
+    private final ExprNode condition;
+    private final ArrayList<StatementNode> body;
+    private final ArrayList<StatementNode> elseBody;
+    public static final StatementKind kind = StatementKind.If;
 
     public IfNode(ExprNode condition, ArrayList<StatementNode> body, ArrayList<StatementNode> elseBody) {
         this.condition = condition;

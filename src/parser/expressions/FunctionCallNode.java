@@ -6,6 +6,7 @@ import parser.Symbol;
 import types.Type;
 
 public class FunctionCallNode extends ExprNode {
+    private static final ExprKind exprKind = ExprKind.FunctionCall;
     private final Symbol id;
     private final ArrayList<ExprNode> args;
     private final Type type;

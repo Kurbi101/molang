@@ -14,22 +14,24 @@ public abstract class Emitter {
 
     // TODO: add more contexts
     public enum ContextKind {
+        Tuples,
         Main,
         Functions,
         Structs,
+        TypeInfo,
     };
 
     protected abstract void emit(String s);
 
-    void emitln(String s) {
+    public void emitln(String s) {
         emit(s + "\n");
     }
 
     public abstract void emitHeaders();
     public abstract  void emitFooters();
 
-    public void switchContext(Context context) {
-        currentContext.push(context);
+    public void switchContext(ContextKind context) {
+        currentContext.push(contexts.get(context));
     }
 
     public Context currentContext() {

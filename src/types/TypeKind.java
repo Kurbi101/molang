@@ -9,4 +9,5 @@ public enum TypeKind {
     Void,
     Array,
     Struct,
+    Tuple,
 }

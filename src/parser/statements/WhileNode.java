@@ -5,8 +5,9 @@ import parser.expressions.ExprNode;
 import java.util.ArrayList;
 
 public class WhileNode extends StatementNode {
-    private ExprNode condition;
-    private ArrayList<StatementNode> body;
+    private final ExprNode condition;
+    private final ArrayList<StatementNode> body;
+    public static final StatementKind kind = StatementKind.While;
 
     public WhileNode(ExprNode condition, ArrayList<StatementNode> body) {
         this.condition = condition;

@@ -7,7 +7,7 @@ import types.Type;
 
 public abstract class CHandler implements EmitterHandler {
 
-    protected String toCType(Type type) {
+    protected static String toCType(Type type) {
         return switch (type.getKind()) {
             case Int -> "int";
             case Float -> "float";
@@ -20,7 +20,7 @@ public abstract class CHandler implements EmitterHandler {
             }
             case Struct -> {
                 StructType structType = (StructType) type;
-                yield "__struct_" + structType.getId();
+                yield structType.getId() + "*";
             }
             default -> {
                 throw new UnsupportedOperationException("Unsupported type: " + type.getKind() + " in c emitter");

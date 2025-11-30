@@ -1,0 +1,66 @@
+import math
+
+fn add(x: int, y: int) -> int {
+    return x + y
+}
+
+interface Iterable {
+    fn iter(self) -> Iterator;
+}
+
+
+
+struct Point implements Iterable {
+    x: int,
+    y: int,
+
+    fn new(x: int, y: int) -> Point {
+        return Point {x: x, y: y}
+    }
+
+    fn distance(self, Point other) -> float {
+        return sqrt((self.x - other.x) * (self.x - other.x) + (self.y - other.y) * (self.y - other.y))
+    }
+
+    fn to_str(self) -> str {
+        return "(" + self.x + ", " + self.y + ")"
+    }
+
+    fn operator+(self, lhs: Point) -> Point {
+        return Point {x: self.x + lhs.x, y: self.y + lhs.y}
+    }
+
+    fn operator*(self, a: float) -> Point {
+        return Point {x: self.x * a, y: self.y * a}
+    }
+
+    Point a;
+    Point b;
+    Point c = a + b;
+
+}
+
+
+
+fn main() {
+    let x: int = 10
+
+    let y = "hello world"
+
+    var z = 10
+
+    z += x
+
+    if x > y {
+
+    }
+
+    let a = [0,1,2,3,4]
+
+    for i, j in a {
+
+    }
+
+
+
+}

@@ -4,11 +4,12 @@ import parser.expressions.ExprNode;
 import types.StrType;
 import types.Type;
 
-public class StringLiteralNode extends ExprNode {
+public class StringLiteralNode extends LiteralNode {
 
     private final String value;
 
     public StringLiteralNode(String value) {
+        super(LiteralKind.String);
         this.value = value;
         this.type = new StrType();
     }

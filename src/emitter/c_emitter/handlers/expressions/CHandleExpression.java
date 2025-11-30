@@ -1,16 +1,23 @@
 package emitter.c_emitter.handlers.expressions;
 
-import emitter.Emitter;
 import emitter.c_emitter.CEmitter;
-import emitter.c_emitter.handlers.CHandler;
-import parser.ASTnode;
+import emitter.c_emitter.handlers.statements.CHandleStatement;
+import parser.expressions.BinOpNode;
 import parser.expressions.ExprNode;
+import parser.expressions.FunctionCallNode;
+import parser.expressions.MethodCallNode;
+import parser.expressions.literals.LiteralNode;
+import parser.statements.StatementNode;
 
-public class CHandleExpression extends CHandler {
+public class CHandleExpression extends CHandleStatement {
+    public static final StatementNode.StatementKind kind = StatementNode.StatementKind.Expression;
 
-    public static void handle(ASTnode node, Emitter e) {
-        ExprNode expr = (ExprNode) node;
-        CEmitter emitter = (CEmitter) e;
-        //TODO: ????
+    public static void handle(ExprNode node, CEmitter e) {
+        switch (node.getExprKind()) {
+            case BinOp -> CHandleBinOp.handle((BinOpNode) node, e);
+            case Literal -> CHandleLiterals.handle((LiteralNode) node, e);
+            case FunctionCall -> CHandleFunctionCall.handle((FunctionCallNode) node, e);
+            case MethodCall -> CHandleMethodCall.handle((MethodCallNode) node, e);
+        }
     }
 }

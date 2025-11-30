@@ -1,4 +1,4 @@
-package emitter.c_emitter;
+package emitter.c_emitter.contexts;
 
 import emitter.Context;
 import emitter.Emitter;
@@ -10,7 +10,7 @@ public class CContext extends Context {
     private StringBuilder currentHLine;
     private final ArrayList<String> staticImports;
     private final ArrayList<String> dynamicImports;
-
+    private final CContext hFile;
 
     public CContext(String dir, String filename, Emitter.ContextKind kind) {
         super(dir, filename, kind);
@@ -18,27 +18,29 @@ public class CContext extends Context {
         this.staticImports = new ArrayList<>();
         this.dynamicImports = new ArrayList<>();
         this.currentHLine = new StringBuilder();
+        this.hFile = new CContext(dir, filename + ".h", kind);
 
         this.staticImports.add("stdlib");
         this.staticImports.add("stdio");
-
     }
 
-    public void writeH(String s) {
-        this.currentHLine.append(s);
+    public CContext getHContext() {
+        return this.hFile;
     }
 
-    public void writeHln(String s) {
-        this.currentHLine.append(s);
-        this.HFileContent.add(this.currentHLine.toString());
-        this.currentHLine = new StringBuilder();
+    private void writeH(String s) {
+        this.hFile.write(s);
+    }
+
+    private void writeHln(String s) {
+        this.hFile.write(s + "\n");
     }
 
     private void writeImports() {
         for (String importName : this.staticImports) {
-            this.writeHln("#include <" + importName + ">");
+            this.writeH("#include <" + importName + ">");
         }
-        this.writeHln("");
+        this.writeH("");
         for (String importName : this.dynamicImports) {
             this.writeHln("#include \"" + importName + ".h\"");
         }

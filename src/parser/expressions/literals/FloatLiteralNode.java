@@ -5,11 +5,12 @@ import parser.expressions.ExprNode;
 import types.FloatType;
 import types.Type;
 
-public class FloatLiteralNode extends ExprNode {
+public class FloatLiteralNode extends LiteralNode {
 
     private final double value;
 
     public FloatLiteralNode(double value) {
+        super(LiteralKind.Float);
         this.value = value;
         this.type = new FloatType();
     }
