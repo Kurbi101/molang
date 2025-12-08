@@ -22,16 +22,12 @@ public class ArrayLiteralNode extends LiteralNode {
     }
 
     public Type evaluateType() {
-        this.type = new ArrayType(this.values.getFirst().evaluateType(), this.values.size());
-        for (ExprNode val : this.values) {
-            if (val.evaluateType() != this.type) {
-                throw new RuntimeException("Array literal must have the same type for all elements");
-            }
-        }
-        return this.type;
+        this.type = this.values.getFirst().evaluateType();
+        return new ArrayType(this.type, new IntLiteralNode(this.values.size()));
     }
 
     public Type getInternalType() {
         //TODO: fix
+        return this.values.getFirst().evaluateType();
     }
 }

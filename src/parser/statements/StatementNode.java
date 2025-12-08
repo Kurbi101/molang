@@ -4,7 +4,11 @@ package parser.statements;
 import parser.ASTnode;
 
 public  class StatementNode extends ASTnode {
-    private static StatementKind kind;
+    protected StatementKind kind;
+
+    public StatementNode(StatementKind kind) {
+        this.kind = kind;
+    }
 
     public enum StatementKind {
         None,

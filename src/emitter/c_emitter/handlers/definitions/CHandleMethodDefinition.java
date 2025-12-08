@@ -1,4 +1,4 @@
-package emitter.c_emitter.handlers;
+package emitter.c_emitter.handlers.definitions;
 
 import emitter.Emitter;
 import emitter.c_emitter.CEmitter;
@@ -11,15 +11,8 @@ import static emitter.c_emitter.handlers.CHandler.toCType;
 public class CHandleMethodDefinition extends CHandleFunctionDefinition {
 
     public static void handle(MethodDefinition def, CEmitter emitter) {
-        emitter.switchContext(Emitter.ContextKind.Structs);
-        emitter.switchToHFile();
+        emitter.switchContext(Emitter.ContextKind.Functions);
 
-        emitter.emit(toCType(def.getReturnType()) + " " + getMethodName(def) + "(");
-        emitter.emit(def.getCaller().getID() + "* self, ");
-        emitParams(def.getParams(), emitter);
-        emitter.emitln(");");
-
-        emitter.switchBackContext();
         emitter.emit(toCType(def.getReturnType()) + " " + getMethodName(def) + "(");
         emitter.emit(def.getCaller().getID() + "* self, ");
         emitParams(def.getParams(), emitter);
@@ -30,6 +23,7 @@ public class CHandleMethodDefinition extends CHandleFunctionDefinition {
         }
 
         emitter.emitln("}");
+
         emitter.switchBackContext();
     }
 

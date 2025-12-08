@@ -13,11 +13,9 @@ public class CHandleBinOp extends CHandleExpression {
         ExprNode rhs = binOp.getRight();
         BinOpNode.BinOp op = binOp.getOp();
 
-        emitter.emit("(" + binOp.evaluateType() + ")(");
         CHandleExpression.handle(lhs, emitter);
         emitter.emit(toCOp(op));
-        CHandleExpression.handle(lhs, emitter);
-        emitter.emit(")");
+        CHandleExpression.handle(rhs, emitter);
     }
 
     private static String toCOp(BinOpNode.BinOp op) {

@@ -10,7 +10,6 @@ public class IntType extends Type {
         Int16,
         Int32,
         Int64,
-        Int128,
     }
 
     private final boolean isSigned;

@@ -12,11 +12,6 @@ public class ParsingError extends RuntimeException {
 	}
 
 	public static ParsingError unexpectedToken(Token got, TokenKind expected, String sourceFile) {
-      String[] lines = sourceFile.split("\n");
-
-
-      for(String line : lines) {
-
-      }
+      throw new RuntimeException("Unexpected token: " + got + " expected: " + expected);
 	}
 }

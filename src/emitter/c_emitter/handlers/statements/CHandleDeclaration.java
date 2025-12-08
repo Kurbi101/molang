@@ -13,7 +13,7 @@ public class CHandleDeclaration extends CHandleStatement {
         }
 
         emitter.emit(toCType(node.getType()) + " ");
-        emitter.emit("var" + node.getId());
+        emitter.emit("" + node.getId());
         emitter.emit(" = ");
 
         if (node.getValue() == null) {
@@ -35,6 +35,7 @@ public class CHandleDeclaration extends CHandleStatement {
             case Void -> "";
             case Array -> "{}";
             case Struct -> "NULL";
+            default -> "";
         };
     }
 

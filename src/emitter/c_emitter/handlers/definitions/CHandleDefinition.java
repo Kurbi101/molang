@@ -1,4 +1,4 @@
-package emitter.c_emitter.handlers;
+package emitter.c_emitter.handlers.definitions;
 
 import parser.Symbol;
 

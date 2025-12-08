@@ -1,6 +1,7 @@
 package types;
 
 
+
 public abstract class Type {
 
     private final TypeKind kind;

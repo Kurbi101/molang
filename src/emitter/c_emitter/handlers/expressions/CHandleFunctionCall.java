@@ -12,7 +12,6 @@ import java.util.ArrayList;
 public class CHandleFunctionCall extends CHandleExpression {
 
     public static void handle(FunctionCallNode fnCall, CEmitter emitter) {
-
         String fnName = getFnName(fnCall.getId());
         emitter.emit(fnName + "(");
         parseInputArgs(fnCall.getArgs(), emitter);
@@ -29,7 +28,7 @@ public class CHandleFunctionCall extends CHandleExpression {
     }
 
     public static String getFnName(Symbol id) {
-        return "__fn" + id.getID();
+        return id.getID();
     }
 
 }

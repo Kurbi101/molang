@@ -18,4 +18,8 @@ public class IdentLiteralNode extends LiteralNode {
     public Type evaluateType() {
         return this.type;
     }
+
+    public Symbol getSymbol() {
+        return this.symbol;
+    }
 }

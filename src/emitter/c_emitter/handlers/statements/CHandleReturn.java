@@ -12,6 +12,5 @@ public class CHandleReturn extends CHandleStatement {
             emitter.emit(" ");
             CHandleExpression.handle(node.getExpr(), emitter);
         }
-        emitter.emit(";");
     }
 }

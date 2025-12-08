@@ -5,9 +5,13 @@ import parser.statements.StatementNode;
 import types.Type;
 
 public abstract class ExprNode extends StatementNode {
-    private static final StatementNode.StatementKind kind = StatementNode.StatementKind.Expression;
-    private static final ExprKind exprKind = ExprKind.None;
+    protected ExprKind exprKind = ExprKind.None;
     protected Type type;
+    protected boolean withParentheses = false;
+
+    public ExprNode() {
+        super(StatementNode.StatementKind.Expression);
+    }
 
     public enum ExprKind {
         None,
@@ -15,10 +19,19 @@ public abstract class ExprNode extends StatementNode {
         Literal,
         FunctionCall,
         MethodCall,
+        IndexAccess,
+    }
+
+    public void setWithParentheses() {
+        this.withParentheses = true;
+    }
+
+    public boolean getWithParentheses() {
+        return this.withParentheses;
     }
 
     public ExprKind getExprKind() {
-         return exprKind;
+         return this.exprKind;
     }
     public abstract Type evaluateType();
 

@@ -3,7 +3,8 @@ package parser.expressions;
 import types.Type;
 
 public class BinOpNode extends ExprNode {
-    private static final ExprKind exprKind = ExprKind.BinOp;
+
+
 
     public enum BinOp {
         Add,
@@ -39,6 +40,7 @@ public class BinOpNode extends ExprNode {
         this.left = left;
         this.right = right;
         this.op = op;
+        this.exprKind = ExprKind.BinOp;
     }
 
     public ExprNode getLeft() {
@@ -55,6 +57,7 @@ public class BinOpNode extends ExprNode {
 
     public Type evaluateType() {
         //TODO: Mika please implement this, also add type checking.
+
         return null;
     }
 }

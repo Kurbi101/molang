@@ -5,11 +5,11 @@ import parser.expressions.literals.StringLiteralNode;
 import java.util.ArrayList;
 
 public class PrintNode extends StatementNode {
-    public static final StatementKind kind = StatementKind.Print;
 
     private final ArrayList<ExprNode> args;
 
     public PrintNode(ArrayList<ExprNode> args) {
+        super(StatementKind.Print);
         this.args = args;
     }
 

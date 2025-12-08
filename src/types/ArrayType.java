@@ -1,11 +1,13 @@
 package types;
 
+import parser.expressions.ExprNode;
+
 public class ArrayType extends Type {
 
     private final Type internal;
-    private final int length;
+    private final ExprNode length;
 
-    public ArrayType(Type elementType, int length) {
+    public ArrayType(Type elementType, ExprNode length) {
         super(TypeKind.Array);
         this.internal = elementType;
         this.length = length;

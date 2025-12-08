@@ -1,4 +1,4 @@
-package emitter.c_emitter.handlers;
+package emitter.c_emitter.handlers.definitions;
 
 import emitter.Emitter;
 import emitter.c_emitter.CEmitter;
@@ -12,7 +12,6 @@ public class CHandleStructDefinition extends CHandleDefinition {
 
     public static void handle(StructDefinition def, CEmitter emitter) {
         emitter.switchContext(Emitter.ContextKind.Structs);
-        emitter.switchToHFile();
 
         String structName = getStructName(def.id());
 

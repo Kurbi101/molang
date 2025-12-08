@@ -5,7 +5,7 @@ import emitter.c_emitter.handlers.expressions.CHandleExpression;
 import parser.statements.IfNode;
 import parser.statements.StatementNode;
 
-public class CHandleIf extends StatementNode {
+public class CHandleIf extends CHandleStatement {
 
     public static void handle(IfNode node, CEmitter emitter) {
 

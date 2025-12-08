@@ -8,9 +8,9 @@ public class IfNode extends StatementNode {
     private final ExprNode condition;
     private final ArrayList<StatementNode> body;
     private final ArrayList<StatementNode> elseBody;
-    public static final StatementKind kind = StatementKind.If;
 
     public IfNode(ExprNode condition, ArrayList<StatementNode> body, ArrayList<StatementNode> elseBody) {
+        super(StatementKind.If);
         this.condition = condition;
         this.body = body;
         this.elseBody = elseBody;

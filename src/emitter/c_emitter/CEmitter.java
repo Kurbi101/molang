@@ -4,23 +4,27 @@ import emitter.Emitter;
 import emitter.c_emitter.contexts.CContext;
 import emitter.c_emitter.contexts.CStructContext;
 
+import java.io.FileWriter;
+
 import static emitter.Emitter.ContextKind.*;
 
 public class CEmitter extends Emitter {
-    private final String fileName = "output";
-    private final String functionOut = "functions";
-    private final String structOut = "structs";
-    private final String tuplesOut = "tuples";
     private final CContext mainContext;
     private final CContext functionContext;
     private final CContext structContext;
     private final CContext tupleContext;
+    private final String out;
 
-    public CEmitter(String dir) {
-        this.mainContext = new CContext(dir, this.fileName, Main);
-        this.functionContext = new CContext(dir, this.functionOut, Functions);
-        this.structContext = new CStructContext(dir, this.structOut);
-        this.tupleContext = new CContext(dir, this.tuplesOut, Tuples);
+    public CEmitter(String out) {
+        this.out = out;
+        this.mainContext = new CContext(Main);
+        this.functionContext = new CContext(Functions);
+        this.structContext = new CStructContext();
+        this.tupleContext = new CContext(Tuples);
+        this.insertContext(this.mainContext, Main);
+        this.insertContext(this.functionContext, Functions);
+        this.insertContext(this.structContext, Structs);
+        this.insertContext(this.tupleContext, Tuples);
     }
 
     public void emit(String s) {
@@ -41,31 +45,32 @@ public class CEmitter extends Emitter {
     }
 
     public void emitln(String s) {
-        emit(s + "\n");
+        switch (currentContext.peek().getKind()) {
+            case Main:
+                mainContext.writeln(s);
+                break;
+            case Functions:
+                functionContext.writeln(s);
+                break;
+            case Structs:
+                structContext.writeln(s);
+                break;
+            case Tuples:
+                tupleContext.writeln(s);
+                break;
+        }
     }
 
-    public void switchToHFile() {
-        this.currentContext.push(this.structContext.getHContext());
+    public void compile() {
+        try (FileWriter writer = new FileWriter(this.out)) {
+            writer.write(this.structContext.compile());
+            writer.write(this.tupleContext.compile());
+            writer.write(this.functionContext.compile());
+            writer.write("int main(int argc, char *argv[]) {\n");
+            writer.write(this.mainContext.compile());
+            writer.write("return 0;\n}");
+        } catch (Exception e) {
+            System.err.println("Error writing to file: "+ out + ". " + e);
+        }
     }
-
-    @Override
-    public void emitHeaders() {
-        mainContext.writeHeader();
-        functionContext.writeHeader();
-        structContext.writeHeader();
-    }
-
-    @Override
-    public void emitFooters() {
-        mainContext.writeFooter();
-        functionContext.writeFooter();
-        structContext.writeFooter();
-    }
-
-    public void flush() {
-        mainContext.flush();
-        functionContext.flush();
-        structContext.flush();
-    }
-
 }

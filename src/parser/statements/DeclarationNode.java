@@ -10,9 +10,9 @@ public class DeclarationNode extends StatementNode {
     private final ExprNode value;
     private final boolean isConst;
 
-    public static final StatementKind kind = StatementKind.Declaration;
 
     public DeclarationNode(Symbol id, Type type, ExprNode value, boolean isConst) {
+        super(StatementKind.Declaration);
         this.id = id;
         this.type = type;
         this.value = value;

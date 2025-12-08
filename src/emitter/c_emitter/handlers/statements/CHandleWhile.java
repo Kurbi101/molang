@@ -5,7 +5,7 @@ import emitter.c_emitter.handlers.expressions.CHandleExpression;
 import parser.statements.StatementNode;
 import parser.statements.WhileNode;
 
-public class CHandleWhile extends StatementNode {
+public class CHandleWhile extends CHandleStatement {
 
     public static void handle(WhileNode node, CEmitter emitter) {
         emitter.emit("while (");

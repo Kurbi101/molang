@@ -10,9 +10,9 @@ public class ForNode extends StatementNode {
     private final ExprNode condition;
     private final ExprNode update;
     private final ArrayList<StatementNode> body;
-    public static final StatementKind kind = StatementKind.For;
 
     public ForNode(ExprNode preCondition, ExprNode condition, ExprNode postCondition, ArrayList<StatementNode> body) {
+        super(StatementKind.For);
         this.init = preCondition;
         this.condition = condition;
         this.update = postCondition;

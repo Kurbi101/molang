@@ -45,6 +45,7 @@ public class CHandlePrint extends CHandleStatement {
             case Void -> "";
             case Array -> "%s";
             case Struct -> "%s";
+            default -> "";
         };
     }
 }

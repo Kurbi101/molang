@@ -3,7 +3,6 @@ package parser.expressions.literals;
 import parser.expressions.ExprNode;
 
 public abstract class LiteralNode extends ExprNode {
-    private static final ExprKind exprKind = ExprKind.Literal;
 
     public enum LiteralKind {
         Int,
@@ -17,6 +16,7 @@ public abstract class LiteralNode extends ExprNode {
 
     public LiteralNode(LiteralKind kind) {
         this.kind = kind;
+        this.exprKind = ExprKind.Literal;
     }
 
     private final LiteralKind kind;

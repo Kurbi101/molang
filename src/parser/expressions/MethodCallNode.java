@@ -6,7 +6,6 @@ import types.Type;
 import java.util.ArrayList;
 
 public class MethodCallNode extends ExprNode {
-    private static final ExprKind exprKind = ExprKind.MethodCall;
     private final ExprNode object;
     private final Symbol method;
     private final ArrayList<ExprNode> args;
@@ -17,6 +16,7 @@ public class MethodCallNode extends ExprNode {
         this.method = method;
         this.args = args;
         this.type = type;
+        this.exprKind = ExprKind.MethodCall;
     }
 
     public ExprNode getObject() {

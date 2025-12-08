@@ -7,7 +7,7 @@ import types.Type;
 
 public abstract class CHandler implements EmitterHandler {
 
-    protected static String toCType(Type type) {
+    public static String toCType(Type type) {
         return switch (type.getKind()) {
             case Int -> "int";
             case Float -> "float";
@@ -16,7 +16,7 @@ public abstract class CHandler implements EmitterHandler {
             case Void -> "void";
             case Array -> {
                 ArrayType arrayType = (ArrayType) type;
-                yield "*" + toCType(arrayType.getInternal());
+                yield toCType(arrayType.getInternal()) + "*";
             }
             case Struct -> {
                 StructType structType = (StructType) type;

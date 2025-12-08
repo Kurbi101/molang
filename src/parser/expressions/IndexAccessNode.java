@@ -22,10 +22,19 @@ public class IndexAccessNode extends ExprNode {
             }
             default -> throw new UnsupportedOperationException("operator overloading for index access not yet available for type " + callee.evaluateType().getKind());
         };
+        this.exprKind = ExprKind.IndexAccess;
     }
 
     @Override
     public Type evaluateType() {
         return this.type;
+    }
+
+    public ExprNode getCallee() {
+        return this.callee;
+    }
+
+    public ExprNode getIndex() {
+        return this.index;
     }
 }
